@@ -16,6 +16,13 @@ import eradicate
 
 class UnitTests(unittest.TestCase):
 
+    def test_comment_contains_black_tags(self):
+        self.assertFalse(eradicate.comment_contains_code(
+            '# fmt: on'))
+
+        self.assertFalse(eradicate.comment_contains_code(
+            '# fmt: off'))
+
     def test_comment_contains_code(self):
         self.assertFalse(eradicate.comment_contains_code(
             '#'))

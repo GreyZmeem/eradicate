@@ -30,7 +30,7 @@ import os
 import re
 import tokenize
 
-__version__ = '1.0'
+__version__ = '1.1'
 
 
 MULTILINE_ASSIGNMENT_REGEX = re.compile(r'^\s*\w+\s*=.*[(\[{]$')
@@ -44,6 +44,10 @@ def comment_contains_code(line, aggressive=True):
         return False
 
     line = line.lstrip(' \t\v\n#').strip()
+
+    # Ignore black tags
+    if line in ("fmt: on", "fmt: off"):
+        return False
 
     # Ignore non-comment related hashes. For example, "# Issue #999".
     if re.search('#[0-9]', line):
